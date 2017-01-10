@@ -20,7 +20,7 @@ public class Product {
 
     @Id
     private String id;
-    private long leverancierId;
+    private Long leverancierId;
     private String name;
     private String description;
     private String imgUrl;
