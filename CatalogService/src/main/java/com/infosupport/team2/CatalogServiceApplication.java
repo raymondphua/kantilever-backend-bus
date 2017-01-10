@@ -30,8 +30,11 @@ public class CatalogServiceApplication {
 			categories.add(new Category("category-x"));
 			categories.add(new Category("category-y"));
 
-			productRepository.save(new Product("1", "testUrl", 20.3, LocalDate.now(), LocalDate.now().plusDays(1), "supplierId123", new Brand("brand1"), categories));
-			productRepository.save(new Product("2", "testUrl2", 33.3, LocalDate.now(), LocalDate.now().plusDays(1), "supplierId321", new Brand("brand2"), categories));
+			productRepository.save(new Product("1", "awc_jersey_male_small.gif", 49.99, LocalDate.now(), LocalDate.now().plusDays(1), "LJ-0192-S", new Brand("brand1"), categories));
+			productRepository.save(new Product("2", "frame_silver_small.gif", 1364.50, LocalDate.now(), LocalDate.now().plusDays(1), "FR-M94S-42", new Brand("brand2"), categories));
+			productRepository.save(new Product("3", "frame_black_small.gif", 1349.60, LocalDate.now(), LocalDate.now().plusDays(1), "FR-M94S-42", new Brand("brand3"), categories));
+			productRepository.save(new Product("4", "superlight_red_small.gif", 3578.27, LocalDate.now(), LocalDate.now().plusDays(1), "FR-M94S-42", new Brand("brand3"), categories));
+			productRepository.save(new Product("5", "roadster_red_small.gif", 1457.99, LocalDate.now(), LocalDate.now().plusDays(1), "FR-M94S-42", new Brand("brand3"), categories));
 
 			System.out.println("All products added");
 			productRepository.findAll().forEach(System.out::println);
