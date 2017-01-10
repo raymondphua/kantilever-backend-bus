@@ -20,6 +20,9 @@ public class Product {
 
     @Id
     private String id;
+    private long leverancierId;
+    private String name;
+    private String description;
     private String imgUrl;
     private double price;
     private LocalDate availableFrom;
