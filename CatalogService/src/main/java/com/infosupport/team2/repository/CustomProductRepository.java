@@ -15,5 +15,5 @@ public interface CustomProductRepository {
     public List<Category> getAllCategories();
     public List<Brand> getAllBrands();
     public Category findByCategorieCName(String cName);
-    public Product findByProductCName(String cName);
+    public Category findByCategoryId(String id);
 }

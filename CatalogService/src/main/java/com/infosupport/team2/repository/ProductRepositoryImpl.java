@@ -3,6 +3,7 @@ package com.infosupport.team2.repository;
 import com.infosupport.team2.model.Brand;
 import com.infosupport.team2.model.Category;
 import com.infosupport.team2.model.Product;
+import com.mongodb.BasicDBObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.mongodb.core.MongoTemplate;
 import org.springframework.data.mongodb.core.query.Criteria;
@@ -46,11 +47,20 @@ public class ProductRepositoryImpl implements CustomProductRepository {
 
     @Override
     public Category findByCategorieCName(String cName) {
+        List<BasicDBObject> categories = mongoTemplate.getCollection("products").distinct("categories", new BasicDBObject("categories.cName", new BasicDBObject("$eq", cName)));
+
+        if (categories.size() > 0) {
+            return mongoTemplate.getConverter().read(Category.class, categories.get(0));
+        }
         return null;
     }
 
     @Override
-    public Product findByProductCName(String cName) {
+    public Category findByCategoryId(String id) {
+        List<BasicDBObject> categories = mongoTemplate.getCollection("products").distinct("categories", new BasicDBObject("categories._id", new BasicDBObject("$eq", id)));
+        if (categories.size() > 0) {
+            return mongoTemplate.getConverter().read(Category.class, categories.get(0));
+        }
         return null;
     }
 

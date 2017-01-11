@@ -17,4 +17,5 @@ public class Category {
     private String categoryId;
     private String name;
     private String cName;
+    private String imageUrl;
 }

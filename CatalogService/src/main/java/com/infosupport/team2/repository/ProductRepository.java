@@ -8,4 +8,5 @@ import org.springframework.data.mongodb.repository.MongoRepository;
  */
 public interface ProductRepository extends MongoRepository<Product, String>, CustomProductRepository{
     public Product findById(String id);
+    public Product findByCName(String cName);
 }
