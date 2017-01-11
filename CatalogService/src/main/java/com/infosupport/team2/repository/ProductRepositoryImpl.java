@@ -12,6 +12,7 @@ import org.springframework.data.mongodb.core.query.Query;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
+import java.util.regex.Pattern;
 
 /**
  * Created by Robin on 11-1-2017.
@@ -65,7 +66,12 @@ public class ProductRepositoryImpl implements CustomProductRepository {
     }
 
     private Criteria getCriteriaForParam(String property, String[] values) {
-        return Criteria.where(property).in(Arrays.asList(values));
+        if (property.equals("price") && values.length > 0) {
+            return Criteria.where(property.toLowerCase()).lt(Double.parseDouble(values[0]));
+        } else if (property.equals("name") && values.length > 0) {
+            return Criteria.where(property).regex(Pattern.compile(values[0], Pattern.CASE_INSENSITIVE | Pattern.UNICODE_CASE));
+        } else
+            return Criteria.where(property.toLowerCase()).in(Arrays.asList(values));
     }
 
     private String getPropertyForParam(String param) {
@@ -78,7 +84,7 @@ public class ProductRepositoryImpl implements CustomProductRepository {
             case "categorie":
                 return "categories._id";
             default:
-                return null;
+                return param;
         }
     }
 }
