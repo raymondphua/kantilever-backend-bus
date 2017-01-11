@@ -4,21 +4,26 @@ import com.infosupport.team2.model.Brand;
 import com.infosupport.team2.model.Category;
 import com.infosupport.team2.model.Product;
 import com.infosupport.team2.repository.ProductRepository;
+import com.mongodb.MongoClient;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.cloud.netflix.eureka.EnableEurekaClient;
 import org.springframework.context.annotation.Bean;
+import org.springframework.data.mongodb.core.MongoTemplate;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
 @SpringBootApplication
+@EnableEurekaClient
 public class CatalogServiceApplication {
 
 	public static void main(String[] args) {
 		SpringApplication.run(CatalogServiceApplication.class, args);
 	}
+
 
 	//test repository
 	@Bean

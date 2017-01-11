@@ -1,0 +1,14 @@
+spring.data.mongodb.host: 192.168.99.100
+server:
+  port: 11120
+eureka:
+  client:
+    register-with-eureka: true
+    service-url:
+      defaultZone: http://localhost:11140/eureka
+  instance:
+    lease-renewal-interval-in-seconds: 5
+    prefer-ip-address: true
+spring:
+  application:
+    name: catalog-service
