@@ -1,5 +1,7 @@
 package com.infosupport.team2.repository;
 
+import com.infosupport.team2.model.Brand;
+import com.infosupport.team2.model.Category;
 import com.infosupport.team2.model.Product;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.mongodb.core.MongoTemplate;
@@ -33,13 +35,23 @@ public class ProductRepositoryImpl implements CustomProductRepository {
     }
 
     @Override
-    public List<String> getAllCategories() {
-        return mongoTemplate.getCollection("products").distinct("categories._id");
+    public List<Category> getAllCategories() {
+        return mongoTemplate.getCollection("products").distinct("categories");
     }
 
     @Override
-    public List<String> getAllBrands() {
-        return mongoTemplate.getCollection("products").distinct("brand._id");
+    public List<Brand> getAllBrands() {
+        return mongoTemplate.getCollection("products").distinct("brand");
+    }
+
+    @Override
+    public Category findByCategorieCName(String cName) {
+        return null;
+    }
+
+    @Override
+    public Product findByProductCName(String cName) {
+        return null;
     }
 
     private Criteria getCriteriaForParam(String property, String[] values) {
@@ -55,8 +67,8 @@ public class ProductRepositoryImpl implements CustomProductRepository {
             case "category":
             case "categorie":
                 return "categories._id";
+            default:
+                return null;
         }
-
-        return null;
     }
 }

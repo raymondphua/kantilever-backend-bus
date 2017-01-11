@@ -14,5 +14,6 @@ import org.springframework.data.annotation.Id;
 public class Brand {
 
     @Id
+    private String brandId;
     private String name;
 }

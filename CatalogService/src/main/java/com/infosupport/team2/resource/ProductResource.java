@@ -3,7 +3,6 @@ package com.infosupport.team2.resource;
 import com.infosupport.team2.model.Product;
 import com.infosupport.team2.repository.ProductRepository;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -19,20 +18,12 @@ public class ProductResource {
     private ProductRepository productRepo;
 
     @RequestMapping(value = {"/products/", "/products"}, method = RequestMethod.GET)
-    public List<Product> allProducts(@RequestParam Map<String,String> allRequestParams, ModelMap model){
+    public List<Product> allProducts(@RequestParam Map<String,String> allRequestParams){
         return productRepo.filterProducts(allRequestParams);
     }
 
-    @RequestMapping(value = {"/categories/", "/categories"}, method = RequestMethod.GET)
-    public List<String> allCategories()
-    {
-        return productRepo.getAllCategories();
+    @RequestMapping(value = {"/products/{id}"}, method = RequestMethod.GET)
+    public Product allProducts(@PathVariable String id){
+        return productRepo.findById(id);
     }
-
-    @RequestMapping(value = {"/brands/", "/brands"}, method = RequestMethod.GET)
-    public List<String> allBrands()
-    {
-        return productRepo.getAllBrands();
-    }
-
 }
