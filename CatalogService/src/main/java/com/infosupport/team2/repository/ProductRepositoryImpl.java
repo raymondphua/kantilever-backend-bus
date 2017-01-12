@@ -67,7 +67,7 @@ public class ProductRepositoryImpl implements CustomProductRepository {
 
     private Criteria getCriteriaForParam(String property, String[] values) {
         if (property.equals("price") && values.length > 0) {
-            return Criteria.where(property.toLowerCase()).lt(Double.parseDouble(values[0]));
+            return Criteria.where(property.toLowerCase()).lte(Double.parseDouble(values[0]));
         } else if (property.equals("name") && values.length > 0) {
             return Criteria.where(property).regex(Pattern.compile(values[0], Pattern.CASE_INSENSITIVE | Pattern.UNICODE_CASE));
         } else
