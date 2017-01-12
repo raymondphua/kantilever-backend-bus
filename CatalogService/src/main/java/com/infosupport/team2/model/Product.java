@@ -30,5 +30,5 @@ public class Product {
     private String supplierProductId;
     private Brand brand;
     private List<Category> categories;
-
+    private String cName;
 }
