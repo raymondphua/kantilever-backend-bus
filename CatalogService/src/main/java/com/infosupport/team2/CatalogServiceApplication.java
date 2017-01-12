@@ -29,18 +29,28 @@ public class CatalogServiceApplication {
 		return (String... args) -> {
 			productRepository.deleteAll();
 
-			List<Category> categories = new ArrayList<>();
-			categories.add(new Category("1", "Aandrijving en versnelling", "aandrijving-en-versnelling", "http://res.cloudinary.com/kantilever/image/upload/v1484137951/accu_elektrische_fiets_a5ic6v.jpg"));
-			categories.add(new Category("2", "Accu elektrische fiets","accu-elektrische-fiets", "http://res.cloudinary.com/kantilever/image/upload/v1484137951/balhoofd_f6kbc6.jpg"));
+			List<Category> multiCat = new ArrayList<>();
+			multiCat.add(new Category("1", "Frame", "frame", "http://res.cloudinary.com/kantilever/image/upload/v1484171995/frame_sdz97a.jpg"));
+			multiCat.add(new Category("2", "Fiets","fiets", "http://res.cloudinary.com/kantilever/image/upload/v1484171994/bike1_ksjo64.jpg"));
 
-			List<Category> categories2 = new ArrayList<>();
-			categories2.add(new Category("3", "Bagagedragers", "bagagedragers", "http://res.cloudinary.com/kantilever/image/upload/v1484137951/bagagedragers_gwpwg6.jpg"));
+			List<Category> fietsCat = new ArrayList<>();
+			fietsCat.add(new Category("2", "Fiets", "fiets", "http://res.cloudinary.com/kantilever/image/upload/v1484171994/bike1_ksjo64.jpg"));
 
-			productRepository.save(new Product("1", 2L, "Long-Sleeve Logo Jersey, S", "Unisex long-sleeve AWC logo microfiber cycling jersey", "awc_jersey_male_small.gif", 49.99, LocalDate.now(), LocalDate.now().plusDays(1), "LJ-0192-S", new Brand("1","brand1"), categories2, "prod1"));
-			productRepository.save(new Product("2", 8L, "HL Mountain Frame - Silver, 42", "Each frame is hand-crafted in our Bothell facility to the optimum diameter and wall-thickness required of a premium mountain frame. The heat-treated welded aluminum frame has a larger diameter tube that", "frame_silver_small.gif", 1364.50, LocalDate.now(), LocalDate.now().plusDays(1), "FR-M94S-42", new Brand("2","brand2"), categories, "prod2"));
-			productRepository.save(new Product("3", 2L, "Road-150 Red, 62", "This bike is ridden by race winners. Developed with the Adventure Works Cycles professional race team, it has a extremely light heat-treated aluminum frame, and steering that allows precision control.", "frame_black_small.gif", 1349.60, LocalDate.now(), LocalDate.now().plusDays(1), "FR-M94S-42", new Brand("3", "brand3"), categories2, "prod3"));
-			productRepository.save(new Product("4", 9L, "Road-650 Red, 58", "Value-priced bike with many features of our top-of-the-line models. Has the same light, stiff frame, and the quick acceleration we're famous for.", "superlight_red_small.gif", 3578.27, LocalDate.now(), LocalDate.now().plusDays(1), "FR-M94S-42", new Brand("3", "brand3"), categories, "prod4"));
-			productRepository.save(new Product("5", 5L, "Road-450 Red, 58", "A true multi-sport bike that offers streamlined riding and a revolutionary design. Aerodynamic design lets you ride with the pros, and the gearing will conquer hilly roads.", "roadster_red_small.gif", 1457.99, LocalDate.now(), LocalDate.now().plusDays(1), "FR-M94S-42", new Brand("3", "brand3"), categories2, "prod5"));
+			List<Category> frameCat = new ArrayList<>();
+			frameCat.add(new Category("1", "Frame", "frame", "http://res.cloudinary.com/kantilever/image/upload/v1484171995/frame_sdz97a.jpg"));
+
+			List<Category> forkCat = new ArrayList<>();
+			forkCat.add(new Category("3", "Fork", "fork", "http://res.cloudinary.com/kantilever/image/upload/v1484171994/fork3_svdu5x.jpg"));
+
+			productRepository.save(new Product("1", 2L, "Road-150 Red, 62", "This bike is ridden by race winners. Developed with the Adventure Works Cycles professional race team, it has a extremely light heat-treated aluminum frame, and steering that allows precision control.", "http://res.cloudinary.com/kantilever/image/upload/v1484171992/bike3_vhdpgz.png", 1366, LocalDate.now(), LocalDate.now().plusDays(1), "LJ-0192-S", new Brand("2","Jumbo"), multiCat, "road-150-red-62"));
+			productRepository.save(new Product("2", 8L, "HL Road Frame - Black, 58", "Our lightest and best quality aluminum frame made from the newest alloy; it is welded and heat-treated for strength. Our innovative design results in maximum comfort and performance.", "http://res.cloudinary.com/kantilever/image/upload/v1484171995/frame3_iz3yj5.jpg", 1364.50, LocalDate.now(), LocalDate.now().plusDays(1), "FR-M94S-42", new Brand("1","Gazelle"), frameCat, "hl-road-frame-black-58"));
+			productRepository.save(new Product("3", 2L, "Road-150 Frame Red, 62", "Our lightest and best quality aluminum frame made from the newest alloy; it is welded and heat-treated for strength. Our innovative design results in maximum comfort and performance.", "http://res.cloudinary.com/kantilever/image/upload/v1484171995/frame2_gpedbr.jpg", 1349.60, LocalDate.now(), LocalDate.now().plusDays(1), "FR-M94S-42", new Brand("3", "Carbon"), frameCat, "road-150-frame-red-62"));
+			productRepository.save(new Product("4", 9L, "Road-650 Red, 58", "Value-priced bike with many features of our top-of-the-line models. Has the same light, stiff frame, and the quick acceleration we're famous for.", "http://res.cloudinary.com/kantilever/image/upload/v1484171992/bike2_bodl90.png", 3578.27, LocalDate.now(), LocalDate.now().plusDays(1), "FR-M94S-42", new Brand("3", "Carbon"), fietsCat, "road-650-red-58"));
+			productRepository.save(new Product("5", 5L, "Mountain-100 Silver, 42", "Top-of-the-line competition mountain bike. Performance-enhancing options include the innovative HL Frame, super-smooth front suspension, and traction for all terrain.", "http://res.cloudinary.com/kantilever/image/upload/v1484171994/bike1_ksjo64.jpg", 1457.99, LocalDate.now(), LocalDate.now().plusDays(1), "FR-M94S-42", new Brand("1", "Gazelle"), fietsCat, "mountain-100-silver-42"));
+
+			productRepository.save(new Product("6", 5L, "LL Fork", "Stout design absorbs shock and offers more precise steering.", "http://res.cloudinary.com/kantilever/image/upload/v1484171994/fork3_svdu5x.jpg", 148.22, LocalDate.now(), LocalDate.now().plusDays(1), "FR-M94S-42", new Brand("4", "ForksInc"), forkCat, "ll-fork"));
+			productRepository.save(new Product("7", 9L, "ML Fork", "Composite road fork with an aluminum steerer tube.", "http://res.cloudinary.com/kantilever/image/upload/v1484171991/fork2_h5a2hp.jpg", 175.49, LocalDate.now(), LocalDate.now().plusDays(1), "FR-M94S-42", new Brand("2", "Jumbo"), forkCat, "ml-fork"));
+			productRepository.save(new Product("8", 5L, "HL Fork", "High-performance carbon road fork with curved legs.", "http://res.cloudinary.com/kantilever/image/upload/v1484171993/fork1_mmzbte.jpg", 192.47, LocalDate.now(), LocalDate.now().plusDays(1), "FR-M94S-42", new Brand("4", "ForksInc"), forkCat, "hl-fork"));
 
 			System.out.println("All products added");
 			productRepository.findAll().forEach(System.out::println);
