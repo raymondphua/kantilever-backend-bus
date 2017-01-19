@@ -18,6 +18,7 @@ import org.apache.commons.lang.time.DateUtils;
 
 import java.lang.reflect.ParameterizedType;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -40,8 +41,14 @@ public class OrderServiceCaller {
         ParameterizedTypeReference<List<Order>> typeRef = new ParameterizedTypeReference<List<Order>>() {
         };
 
-        List<Order> orders = restTemplate.exchange(ORDER_URL + "/date", HttpMethod.POST, new HttpEntity<CsvModel>(csvModel), typeRef).getBody();
+        List<Order> orders = restTemplate.exchange(ORDER_URL + "/date", HttpMethod.POST, new HttpEntity<>(csvModel), typeRef).getBody();
+        List<Product> allProducts = new ArrayList<>();
+        orders.forEach(o -> {
+            o.getOrderedProducts().forEach(p -> {
+                allProducts.add(p);
+            });
+        });
 
-        return null;
+        return allProducts;
     }
 }

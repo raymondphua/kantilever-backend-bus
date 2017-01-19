@@ -56,7 +56,7 @@ public class CsvFileWriter extends TimerTask {
 
         //Mock data pls
         LocalDateTime localDateTime = LocalDateTime.now();
-        File file = new File("/home/djones/Desktop/asd/test.properties");
+        File file = new File("C:/development/test.properties");
         FileInputStream fileInputStream = new FileInputStream(file);
 
         Properties properties = new Properties();
