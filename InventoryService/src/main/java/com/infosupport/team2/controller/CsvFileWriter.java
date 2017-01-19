@@ -7,11 +7,10 @@ import org.supercsv.io.CsvBeanWriter;
 import org.supercsv.io.ICsvBeanWriter;
 import org.supercsv.prefs.CsvPreference;
 
-import java.io.FileNotFoundException;
-import java.io.FileWriter;
-import java.io.IOException;
+import java.io.*;
 import java.time.LocalDateTime;
 import java.util.*;
+import java.util.concurrent.TimeUnit;
 
 /**
  * Created by djones on 1/17/17.
@@ -31,7 +30,6 @@ public class CsvFileWriter extends TimerTask {
 
 
     public void downloadCsv() throws IOException {
-
         //Mock data pls
         TestObject testObject = new TestObject("MongoHashCode",  "5");
         TestObject testObject2 = new TestObject("MongoHashCode2", "8" );
@@ -40,10 +38,15 @@ public class CsvFileWriter extends TimerTask {
         LocalDateTime localDateTime = LocalDateTime.now();
         List<TestObject>  testObjects = Arrays.asList(testObject, testObject2, testObject3);
 
+        File file = new File("/home/djones/Desktop/asd/test.properties");
+        FileInputStream fileInputStream = new FileInputStream(file);
+
+        Properties properties = new Properties();
+        properties.load(fileInputStream);
+        String value = properties.getProperty("directory");
 
         String filename = "_test_"+ localDateTime +"_.csv";
-        String workingDirectory = System.getProperty("user.home");
-        String absolutepath = workingDirectory + filename;
+        String absolutepath = value + filename;
 
         ICsvBeanWriter beanWriter = null;
         try {
