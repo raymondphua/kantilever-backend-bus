@@ -12,6 +12,11 @@
 	<artifactId>catalogservice</artifactId>
 
 	<dependencies>
+        <dependency>
+            <groupId>org.glassfish.jersey.core</groupId>
+            <artifactId>jersey-common</artifactId>
+            <version>LATEST</version>
+        </dependency>
 		<dependency>
 			<groupId>org.projectlombok</groupId>
 			<artifactId>lombok</artifactId>
@@ -46,6 +51,7 @@
 			<artifactId>javaee-web-api</artifactId>
 			<version>7.0</version>
 		</dependency>
+
 	</dependencies>
 
 </project>
