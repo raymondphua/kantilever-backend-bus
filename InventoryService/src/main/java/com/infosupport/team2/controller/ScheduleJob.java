@@ -1,12 +1,7 @@
 package com.infosupport.team2.controller;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
-import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
-
-
 import javax.annotation.PostConstruct;
 import java.io.*;
 import java.util.Properties;
@@ -20,6 +15,8 @@ import java.util.concurrent.TimeUnit;
 public class ScheduleJob {
 
     private Timer timer = new Timer();
+    @Autowired
+    private CsvFileWriter csvFileWriter;
 
     @PostConstruct
     public void schedule() throws IOException {
@@ -30,7 +27,9 @@ public class ScheduleJob {
         String value = properties.getProperty("duur");
         Long parseStringToLong = Long.parseLong(value);
         long mili = TimeUnit.MINUTES.toMillis(parseStringToLong);
-        timer.schedule(new CsvFileWriter(), 0, mili);
+        csvFileWriter.setRefreshRate(parseStringToLong);
+        timer.schedule(csvFileWriter, 0, mili);
+
     }
 
 }

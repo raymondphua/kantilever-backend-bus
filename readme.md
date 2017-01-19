@@ -5,14 +5,12 @@ What is it?
 ####CatalogService
 The customer service handles the requirement 4. <br />
 With this you should be able to: <br />
-* Edit customer details.
+
 
 ####InventoryService
 The delivery service handles the requirements 7, 9, 10. <br />
 With this you should be able to: <br />
-* Rate an order
-* Wrap an order 
-* Ship an order
+
 
 The Latest Version
 ------------------

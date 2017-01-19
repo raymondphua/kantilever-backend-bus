@@ -1,6 +1,11 @@
 package com.infosupport.team2.controller;
 
-import com.infosupport.team2.model.TestObject;
+import com.infosupport.team2.model.Product;
+import com.infosupport.team2.serviceCaller.OrderServiceCaller;
+import lombok.AllArgsConstructor;
+import lombok.NoArgsConstructor;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Configurable;
 import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Controller;
 import org.supercsv.io.CsvBeanWriter;
@@ -10,34 +15,47 @@ import org.supercsv.prefs.CsvPreference;
 import java.io.*;
 import java.time.LocalDateTime;
 import java.util.*;
-import java.util.concurrent.TimeUnit;
 
 /**
  * Created by djones on 1/17/17.
  */
-@Component
+@NoArgsConstructor
 @Controller
 public class CsvFileWriter extends TimerTask {
 
+    private Long refreshRate;
+    private int runs = 0;
+
+    public void setRefreshRate(Long refreshRate){
+        this.refreshRate = refreshRate;
+    }
+
+    @Autowired
+    OrderServiceCaller orderServiceCaller;
+
+    public CsvFileWriter(Long parseStringToLong) {
+        this.refreshRate = parseStringToLong;
+    }
+
     @Override
     public void run() {
-        try {
-            downloadCsv();
-        } catch (IOException e) {
-            e.printStackTrace();
+        if (runs != 0) {
+            try {
+                downloadCsv();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
         }
+
+        runs++;
     }
 
 
     public void downloadCsv() throws IOException {
+        List<Product> products = orderServiceCaller.productList(refreshRate);
+
         //Mock data pls
-        TestObject testObject = new TestObject("MongoHashCode",  "5");
-        TestObject testObject2 = new TestObject("MongoHashCode2", "8" );
-        TestObject testObject3 = new TestObject("MongoHashCode3", "14");
-
         LocalDateTime localDateTime = LocalDateTime.now();
-        List<TestObject>  testObjects = Arrays.asList(testObject, testObject2, testObject3);
-
         File file = new File("/home/djones/Desktop/asd/test.properties");
         FileInputStream fileInputStream = new FileInputStream(file);
 
@@ -56,7 +74,7 @@ public class CsvFileWriter extends TimerTask {
             String[] header = {"id", "quantity"};
             beanWriter.writeHeader(header);
 
-            for (TestObject item : testObjects) {
+            for (Product item : products) {
                 beanWriter.write(item, header);
             }
 
