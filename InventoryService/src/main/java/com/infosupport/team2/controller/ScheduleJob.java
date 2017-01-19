@@ -21,7 +21,7 @@ public class ScheduleJob {
     @PostConstruct
     public void schedule() throws IOException {
         Properties properties = new Properties();
-        File file = new File("C:/development/test.properties");
+        File file = new File("/home/djones/Desktop/asd/test.properties");
         FileInputStream fileInputStream = new FileInputStream(file);
         properties.load(fileInputStream);
         String value = properties.getProperty("duur");
