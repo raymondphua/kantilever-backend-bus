@@ -7,16 +7,14 @@ package com.infosupport.team2.serviceCaller;
 import com.infosupport.team2.model.CsvModel;
 import com.infosupport.team2.model.Order;
 import com.infosupport.team2.model.Product;
-import org.springframework.beans.factory.annotation.Autowired;
+import org.apache.commons.lang.time.DateUtils;
 import org.springframework.core.ParameterizedTypeReference;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpMethod;
-import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
-import org.apache.commons.lang.time.DateUtils;
 
-import java.lang.reflect.ParameterizedType;
+import javax.annotation.Resource;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
@@ -27,7 +25,7 @@ public class OrderServiceCaller {
 
     private static final String ORDER_URL = "http://order-service/orders";
 
-    @Autowired
+    @Resource
     private RestTemplate restTemplate;
 
     public List<Product> productList(long refreshRate) {

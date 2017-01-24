@@ -2,8 +2,11 @@ package com.infosupport.team2.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
+
 import javax.annotation.PostConstruct;
-import java.io.*;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.IOException;
 import java.util.Properties;
 import java.util.Timer;
 import java.util.concurrent.TimeUnit;
@@ -29,7 +32,6 @@ public class ScheduleJob {
         long mili = TimeUnit.MINUTES.toMillis(parseStringToLong);
         csvFileWriter.setRefreshRate(parseStringToLong);
         timer.schedule(csvFileWriter, 0, mili);
-
     }
 
 }
