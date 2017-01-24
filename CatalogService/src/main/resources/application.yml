@@ -12,3 +12,6 @@ eureka:
 spring:
   application:
     name: catalog-service
+  data:
+    mongodb:
+     # host: 192.168.99.100
