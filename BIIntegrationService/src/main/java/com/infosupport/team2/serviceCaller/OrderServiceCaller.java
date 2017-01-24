@@ -1,8 +1,8 @@
 package com.infosupport.team2.serviceCaller;
 
 import com.google.gson.Gson;
-import com.infosupport.team2.model.BusinessKeyModel;
 import com.infosupport.team2.model.DateRequestModel;
+import com.infosupport.team2.model.OrderDataModel;
 import org.springframework.core.ParameterizedTypeReference;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
@@ -28,8 +28,8 @@ public class OrderServiceCaller {
         restTemplate = new RestTemplate();
     }
 
-    public List<BusinessKeyModel> getBusinessKeys(HttpServletRequest request, DateRequestModel fromDate) {
-        ParameterizedTypeReference<List<BusinessKeyModel>> typeRef = new ParameterizedTypeReference<List<BusinessKeyModel>>() {};
+    public List<OrderDataModel> getBusinessKeys(HttpServletRequest request, DateRequestModel fromDate) {
+        ParameterizedTypeReference<List<OrderDataModel>> typeRef = new ParameterizedTypeReference<List<OrderDataModel>>() {};
 
         HttpHeaders headers = new HttpHeaders();
         String authotization = request.getHeader("Authorization");
@@ -47,7 +47,7 @@ public class OrderServiceCaller {
 
         HttpEntity<String> entity = new HttpEntity<String>(json, headers);
 
-        List<BusinessKeyModel> orders = restTemplate.exchange(ORDER_URL + "/date", HttpMethod.POST, entity, typeRef).getBody();
+        List<OrderDataModel> orders = restTemplate.exchange(ORDER_URL + "/date", HttpMethod.POST, entity, typeRef).getBody();
 
         return orders;
     }

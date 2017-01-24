@@ -5,18 +5,13 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import java.util.List;
-
 /**
- * Created by Robin on 23-1-2017.
+ * Created by Robin on 24-1-2017.
  */
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
 @JsonIgnoreProperties(ignoreUnknown = true)
-public class BusinessKeyModel {
-    private Long id;
-    private String orderBKey;
-    private List<String> productBKeys;
-    private String customerBKey;
+public class CustomerDataModel {
+    private String customerKey;
 }

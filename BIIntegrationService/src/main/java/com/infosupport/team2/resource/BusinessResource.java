@@ -1,7 +1,7 @@
 package com.infosupport.team2.resource;
 
-import com.infosupport.team2.model.BusinessKeyModel;
 import com.infosupport.team2.model.DateRequestModel;
+import com.infosupport.team2.model.OrderDataModel;
 import com.infosupport.team2.serviceCaller.OrderServiceCaller;
 import com.infosupport.team2.util.ConvertUtil;
 import org.springframework.beans.factory.BeanFactory;
@@ -23,10 +23,10 @@ public class BusinessResource{
     BeanFactory beanFactory;
 
     @RequestMapping(value= "/{historyInMinutes}", method = RequestMethod.GET)
-    public List<BusinessKeyModel> get(@PathVariable("historyInMinutes") int historyInMinutes, HttpServletRequest request) {
+    public List<OrderDataModel> get(@PathVariable("historyInMinutes") int historyInMinutes, HttpServletRequest request) {
         OrderServiceCaller orderServiceCaller = beanFactory.getBean(OrderServiceCaller.class);
         DateRequestModel model = new DateRequestModel(ConvertUtil.historyFromMinutes(historyInMinutes), "besteld");
-        List<BusinessKeyModel> businessKeys = orderServiceCaller.getBusinessKeys(request, model);
+        List<OrderDataModel> businessKeys = orderServiceCaller.getBusinessKeys(request, model);
 
         return businessKeys;
     }
