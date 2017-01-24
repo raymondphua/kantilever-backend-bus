@@ -2,9 +2,12 @@ package com.infosupport.team2.repository;
 
 import com.infosupport.team2.model.Brand;
 import com.infosupport.team2.model.Category;
+import com.infosupport.team2.model.PageoableObject;
 import com.infosupport.team2.model.Product;
 import com.mongodb.BasicDBObject;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.mongodb.core.MongoTemplate;
 import org.springframework.data.mongodb.core.query.Criteria;
 import org.springframework.data.mongodb.core.query.Query;
@@ -19,12 +22,29 @@ import java.util.regex.Pattern;
  */
 public class ProductRepositoryImpl implements CustomProductRepository {
 
+    private static final String PAGE = "page";
+    private static final String SIZE = "size";
+
     @Autowired
     MongoTemplate mongoTemplate;
 
     @Override
-    public List<Product> filterProducts(Map<String, String> filters) {
+    public PageoableObject<Product> filterProducts(Map<String, String> filters) {
+        PageoableObject<Product> pageoableObject = new PageoableObject<>();
         Query productFilter = new Query();
+        PageRequest pageableRequest = null;
+
+        if (toBePaged(filters)) {
+            int page = Integer.valueOf(filters.get(PAGE));
+            int size = Integer.valueOf(filters.get(SIZE));
+            pageableRequest = new PageRequest(page, size);
+
+            pageoableObject.setCurrentPage(page);
+            pageoableObject.setPageSize(size);
+
+            filters.remove(PAGE);
+            filters.remove(SIZE);
+        }
 
         filters.forEach((k, v) -> {
             String property = getPropertyForParam(k);
@@ -33,7 +53,17 @@ public class ProductRepositoryImpl implements CustomProductRepository {
             }
         });
 
-        return mongoTemplate.find(productFilter, Product.class);
+        //find all products with filter for count
+        pageoableObject.setTotal(mongoTemplate.count(productFilter, Product.class));
+
+        //set pagerequest + return paginated products
+        productFilter.with(pageableRequest);
+        pageoableObject.setItems(mongoTemplate.find(productFilter,Product.class));
+        return pageoableObject;
+    }
+
+    private boolean toBePaged(Map<String, String> filters) {
+        return filters.containsKey(PAGE) && filters.containsKey(SIZE);
     }
 
     @Override
