@@ -17,24 +17,6 @@ import java.util.List;
 @AllArgsConstructor
 @Document(collection = "products")
 public class Product {
-
-    public Product(String id, long supplierId, String supplierShort, String name, String description, String imgUrl,  double price, LocalDate availableFrom, LocalDate availableTo, String supplierProductId, Brand brand, List<Category> categories, String cName) {
-        this.id = id;
-        this.supplierId = supplierId;
-        this.supplierShort = supplierShort;
-        this.name = name;
-        this.description = description;
-        this.imgUrl = imgUrl;
-        this.price = price;
-        this.availableFrom = availableFrom;
-        this.availableTo = availableTo;
-        this.supplierProductId = supplierProductId;
-        this.brand = brand;
-        this.categories = categories;
-        this.cName = cName;
-        generateKey();
-    }
-
     @Id
     private String id;
     private String productKey;
@@ -50,6 +32,23 @@ public class Product {
     private Brand brand;
     private List<Category> categories;
     private String cName;
+
+    public Product(String id, long supplierId, String supplierShort, String name, String description, String imgUrl,  double price, LocalDate availableFrom, LocalDate availableTo, String supplierProductId, Brand brand, List<Category> categories, String cName) {
+        this.id = id;
+        this.supplierId = supplierId;
+        this.supplierShort = supplierShort;
+        this.name = name;
+        this.description = description;
+        this.imgUrl = imgUrl;
+        this.price = price;
+        this.availableFrom = availableFrom;
+        this.availableTo = availableTo;
+        this.supplierProductId = supplierProductId;
+        this.brand = brand;
+        this.categories = categories;
+        this.cName = cName;
+        this.productKey = generateKey();
+    }
 
     private String generateKey(){
         StringBuilder sb = new StringBuilder();
