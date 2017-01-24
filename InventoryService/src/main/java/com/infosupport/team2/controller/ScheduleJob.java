@@ -1,5 +1,6 @@
 package com.infosupport.team2.controller;
 
+import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import javax.annotation.PostConstruct;
@@ -14,6 +15,7 @@ import java.util.concurrent.TimeUnit;
 @Component
 public class ScheduleJob {
 
+    private final static Logger logger = Logger.getLogger(ScheduleJob.class);
     private Timer timer = new Timer();
     @Autowired
     private CsvFileWriter csvFileWriter;
@@ -27,10 +29,19 @@ public class ScheduleJob {
     private long getDuration() throws IOException {
         Properties properties = new Properties();
         File file = new File("/home/djones/Desktop/asd/test.properties");
-        FileInputStream fileInputStream = new FileInputStream(file);
-        properties.load(fileInputStream);
-        String value = properties.getProperty("duur");
-        Long longValueOfPropertiesFile = Long.parseLong(value);
+        FileInputStream fileInputStream = null;
+        Long longValueOfPropertiesFile = 0L;
+        try {
+            fileInputStream = new FileInputStream(file);
+            properties.load(fileInputStream);
+            String value = properties.getProperty("duur");
+            longValueOfPropertiesFile = Long.parseLong(value);
+        } catch(Exception e) {
+            logger.error(e.getLocalizedMessage());
+        } finally {
+            fileInputStream.close();
+        }
+
         return TimeUnit.MINUTES.toMillis(longValueOfPropertiesFile);
     }
 
