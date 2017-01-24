@@ -26,7 +26,7 @@ public class ScheduleJob {
 
     private long getDuration() throws IOException {
         Properties properties = new Properties();
-        File file = new File("/home/djones/Desktop/asd/test.properties");
+        File file = new File(System.getProperty("user.dir") + "/test.properties");
         FileInputStream fileInputStream = new FileInputStream(file);
         properties.load(fileInputStream);
         String value = properties.getProperty("duur");

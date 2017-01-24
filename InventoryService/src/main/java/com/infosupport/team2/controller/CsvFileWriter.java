@@ -56,14 +56,14 @@ public class CsvFileWriter extends TimerTask {
 
         //Mock data pls
         LocalDateTime localDateTime = LocalDateTime.now();
-        File file = new File("/home/djones/Desktop/asd/test.properties");
+        File file = new File(System.getProperty("user.dir") + "/test.properties");
         FileInputStream fileInputStream = new FileInputStream(file);
 
         Properties properties = new Properties();
         properties.load(fileInputStream);
         String value = properties.getProperty("directory");
 
-        String filename = "_test_"+ localDateTime +"_.csv";
+        String filename = "Voorraad_"+ localDateTime +"_.csv";
         String absolutepath = value + filename;
 
         ICsvBeanWriter beanWriter = null;
