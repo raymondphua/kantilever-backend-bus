@@ -33,15 +33,10 @@ public class OrderServiceCaller {
     public List<Product> productList(long refreshRate) {
         Date date = new Date();
         Date refreshRateDate = DateUtils.addMinutes(date, (int) -refreshRate);
+        long dateInMilliseconds = refreshRateDate.getTime();
 
-        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm");
-        String dateString = simpleDateFormat.format(refreshRateDate);
-        CsvModel csvModel = new CsvModel(dateString);
-
-        ParameterizedTypeReference<List<Order>> typeRef = new ParameterizedTypeReference<List<Order>>() {
-        };
-
-        List<Order> orders = restTemplate.exchange(ORDER_URL + "/date", HttpMethod.POST, new HttpEntity<>(csvModel), typeRef).getBody();
+        ParameterizedTypeReference<List<Order>> typeRef = new ParameterizedTypeReference<List<Order>>() {};
+        List<Order> orders = restTemplate.exchange(ORDER_URL + "?dateafter=" + dateInMilliseconds, HttpMethod.GET, null, typeRef).getBody();
         List<Product> allProducts = new ArrayList<>();
         orders.forEach(o -> {
             o.getOrderedProducts().forEach(p -> {
