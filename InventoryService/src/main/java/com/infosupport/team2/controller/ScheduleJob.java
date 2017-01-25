@@ -1,5 +1,6 @@
 package com.infosupport.team2.controller;
 
+import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -17,6 +18,7 @@ import java.util.concurrent.TimeUnit;
 @Component
 public class ScheduleJob {
 
+    private final static Logger logger = Logger.getLogger(ScheduleJob.class);
     private Timer timer = new Timer();
     @Autowired
     private CsvFileWriter csvFileWriter;

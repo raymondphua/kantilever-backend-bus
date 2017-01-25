@@ -1,0 +1,23 @@
+spring:
+  application:
+    name: biintegration-service
+
+server:
+  port: 11117
+
+eureka:
+  client:
+    register-with-eureka: true
+    service-url:
+      defaultZone: http://localhost:11140/eureka/
+  instance:
+    lease-renewal-interval-in-seconds: 5
+    prefer-ip-address: true
+security:
+  oauth2:
+    client:
+      client-id: kantilever
+      client-secret: kantiSecret
+      access-token-uri: http://localhost:11150/oauth/check_token
+    resource:
+      token-info-uri: http://localhost:11150/oauth/check_token
