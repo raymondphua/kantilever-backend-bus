@@ -11,7 +11,6 @@ import java.util.List;
 /**
  * Created by Robin on 11-1-2017.
  */
-@CrossOrigin
 @RestController
 public class CategoryResource {
     @Autowired

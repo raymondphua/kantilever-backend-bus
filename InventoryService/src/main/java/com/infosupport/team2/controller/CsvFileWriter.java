@@ -2,11 +2,8 @@ package com.infosupport.team2.controller;
 
 import com.infosupport.team2.model.Product;
 import com.infosupport.team2.serviceCaller.OrderServiceCaller;
-import lombok.AllArgsConstructor;
 import lombok.NoArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Configurable;
-import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Controller;
 import org.supercsv.io.CsvBeanWriter;
 import org.supercsv.io.ICsvBeanWriter;
@@ -14,7 +11,10 @@ import org.supercsv.prefs.CsvPreference;
 
 import java.io.*;
 import java.time.LocalDateTime;
-import java.util.*;
+import java.time.format.DateTimeFormatter;
+import java.util.List;
+import java.util.Properties;
+import java.util.TimerTask;
 
 /**
  * Created by djones on 1/17/17.
@@ -55,15 +55,16 @@ public class CsvFileWriter extends TimerTask {
         List<Product> products = orderServiceCaller.productList(refreshRate);
 
         //Mock data pls
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy_MM_dd_HH_mm");
         LocalDateTime localDateTime = LocalDateTime.now();
-        File file = new File(System.getProperty("user.dir") + "/test.properties");
+        File file = new File(System.getProperty("user.dir") + "/config.properties");
         FileInputStream fileInputStream = new FileInputStream(file);
 
         Properties properties = new Properties();
         properties.load(fileInputStream);
         String value = properties.getProperty("directory");
 
-        String filename = "Voorraad_"+ localDateTime +"_.csv";
+        String filename = "Voorraad_"+ localDateTime.format(formatter)+".csv";
         String absolutepath = value + filename;
 
         ICsvBeanWriter beanWriter = null;

@@ -2,8 +2,11 @@ package com.infosupport.team2.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
+
 import javax.annotation.PostConstruct;
-import java.io.*;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.IOException;
 import java.util.Properties;
 import java.util.Timer;
 import java.util.concurrent.TimeUnit;
@@ -26,7 +29,7 @@ public class ScheduleJob {
 
     private long getDuration() throws IOException {
         Properties properties = new Properties();
-        File file = new File(System.getProperty("user.dir") + "/test.properties");
+        File file = new File(System.getProperty("user.dir") + "/config.properties");
         FileInputStream fileInputStream = new FileInputStream(file);
         properties.load(fileInputStream);
         String value = properties.getProperty("duur");
