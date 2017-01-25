@@ -6,13 +6,11 @@ import com.infosupport.team2.repository.ProductRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.List;
 import java.util.Map;
 
 /**
  * Created by Robin on 10-1-2017.
  */
-@CrossOrigin
 @RestController
 public class ProductResource {
     @Autowired

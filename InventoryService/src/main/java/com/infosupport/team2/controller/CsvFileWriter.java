@@ -2,12 +2,9 @@ package com.infosupport.team2.controller;
 
 import com.infosupport.team2.model.Product;
 import com.infosupport.team2.serviceCaller.OrderServiceCaller;
-import lombok.AllArgsConstructor;
 import lombok.NoArgsConstructor;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Configurable;
-import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Controller;
 import org.supercsv.io.CsvBeanWriter;
 import org.supercsv.io.ICsvBeanWriter;
@@ -15,7 +12,10 @@ import org.supercsv.prefs.CsvPreference;
 
 import java.io.*;
 import java.time.LocalDateTime;
-import java.util.*;
+import java.time.format.DateTimeFormatter;
+import java.util.List;
+import java.util.Properties;
+import java.util.TimerTask;
 
 import static org.springframework.boot.Banner.Mode.LOG;
 
@@ -54,23 +54,22 @@ public class CsvFileWriter extends TimerTask {
         List<Product> products = orderServiceCaller.productList(refreshRate);
 
         //Mock data pls
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy_MM_dd_HH_mm");
         LocalDateTime localDateTime = LocalDateTime.now();
-        File file = new File("/home/djones/Desktop/asd/test.properties");
-
-        FileInputStream fileInputStream = null;
-        ICsvBeanWriter beanWriter = null;
-
-        try {
-            fileInputStream = new FileInputStream(file);
+        File file = new File(System.getProperty("user.dir") + "/config.properties");
+        FileInputStream fileInputStream = new FileInputStream(file);
 
             Properties properties = new Properties();
             properties.load(fileInputStream);
             String value = properties.getProperty("directory");
 
-            String filename = "_test_" + localDateTime + "_.csv";
-            String absolutepath = value + filename;
+        String filename = "Voorraad_"+ localDateTime.format(formatter)+".csv";
+        String absolutepath = value + filename;
 
-           beanWriter = new CsvBeanWriter(new FileWriter(absolutepath), CsvPreference.STANDARD_PREFERENCE);
+        ICsvBeanWriter beanWriter = null;
+        try {
+
+            beanWriter = new CsvBeanWriter(new FileWriter(absolutepath), CsvPreference.STANDARD_PREFERENCE);
 
             String[] header = {"id", "quantity"};
             beanWriter.writeHeader(header);

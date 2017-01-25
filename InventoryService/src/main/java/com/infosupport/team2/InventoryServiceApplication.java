@@ -5,7 +5,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.cloud.client.loadbalancer.LoadBalanced;
 import org.springframework.cloud.netflix.eureka.EnableEurekaClient;
 import org.springframework.context.annotation.Bean;
-import org.springframework.scheduling.annotation.EnableScheduling;
+import org.springframework.context.annotation.Primary;
 import org.springframework.web.client.RestTemplate;
 
 @SpringBootApplication
@@ -18,7 +18,13 @@ public class InventoryServiceApplication {
 
 	@Bean
 	@LoadBalanced
-	RestTemplate restTemplate() {
+	RestTemplate loadBalancedTemplate() {
+		return new RestTemplate();
+	}
+
+	@Bean
+	@Primary
+	RestTemplate restTemplate(){
 		return new RestTemplate();
 	}
 }
