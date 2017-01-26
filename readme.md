@@ -34,6 +34,7 @@ API Example
 -------------
 You can test these examples with postman or a similar application. <br/>
 
+#####Authentication Service
 IMPORTANT: Only if you get a 401 status code (unauthorized) you should execute these steps. 
 <br/>
 <mark>POST</mark> Trough this route: <br/>
@@ -77,6 +78,8 @@ Now we need to add this to the headers of our request.
 
 <br/>
 
+#####Catalog Service
+<br/>
 <mark>GET</mark> Through this route you can retrieve all brands <br/>
 
     /catalog/brands
@@ -221,6 +224,8 @@ Example return value:
     
 <br/>
 
+#####Catalog Service
+<br/>
 <mark>GET</mark> Through this route you can retrieve a product with a specific id<br/>
 
     /catalog/products/{id}
