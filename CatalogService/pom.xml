@@ -54,7 +54,6 @@
 
 	</dependencies>
 
-
 	<build>
 		<finalName>catalog-service</finalName>
 	</build>
