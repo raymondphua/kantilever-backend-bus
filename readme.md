@@ -1,11 +1,11 @@
 What is it?
 -----------
-####Microservices. TODO
+####Microservices.
 
 ####BIIntegrationService
 This should be able to: <br />
 <ul>
-    <li>Externaly request a specific time in minutes to get the products in that time frame</li>
+    <li>Externally request a specific time in minutes to get the products in that time frame</li>
 </ul>
 
 ####CatalogService
@@ -13,6 +13,8 @@ The catalog service handles the requirements 1, 2. <br />
 With this you should be able to: <br />
 <ul>
     <li>Get the product details</li>
+    <li>Get the brand details</li>
+    <li>Get the category details</li>
 </ul>
 
 ####InventoryService
@@ -354,7 +356,7 @@ Example return value:
     }
 <br/>
 
-Installation TODO
+Installation
 ------------
 How to run the microservice. Follow this pattern.
 
