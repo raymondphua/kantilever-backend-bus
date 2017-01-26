@@ -14,7 +14,7 @@ import org.springframework.security.oauth2.config.annotation.web.configuration.E
 @EnableAutoConfiguration
 public class BiIntegrationServiceApplication {
 
-	public static void main(String[] args) {
-		SpringApplication.run(BiIntegrationServiceApplication.class, args);
-	}
+    public static void main(String[] args) {
+        SpringApplication.run(BiIntegrationServiceApplication.class, args);
+    }
 }
