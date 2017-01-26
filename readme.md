@@ -3,17 +3,25 @@ What is it?
 ####Microservices. TODO
 
 ####BIIntegrationService
-
+This should be able to: <br />
+<ul>
+    <li>Externaly request a specific time in minutes to get the products in that time frame</li>
+</ul>
 
 ####CatalogService
-
+The catalog service handles the requirements 1, 2. <br />
+With this you should be able to: <br />
+<ul>
+    <li>Get the product details</li>
+</ul>
 
 ####InventoryService
-
-
-The Latest Version
-------------------
-The latest and greatest.
+This service should be able to: <br />
+<ul>
+    <li>Read the propertie file "config.properties"</li>
+    <li>Set duration of the scheduled job</li>
+    <li>Set the output folder for the csv file</li>
+</ul>
 
 Technology
 -------------
@@ -26,12 +34,55 @@ API Example
 -------------
 You can test these examples with postman or a similar application. <br/>
 
+IMPORTANT: Only if you get a 401 status code (unauthorized) you should execute these steps. 
+<br/>
+<mark>POST</mark> Trough this route: <br/>
+
+    /oauth/token
+
+<br/>
+Select x-www-form-urlencode, in the body you should add the following <br/>
+<br/>
+|grant_type     |    password           |
+<br/>
+|username       |    pieter@hotmail.com |
+<br/>
+|password       |    henkie             |
+<br/>
+|client_id      |    kantilever         |
+<br/>
+|client_secret  |    kantiSecret        |
+<br/>
+
+
+<br/>
+Example return value:
+<br/>
+    
+    {
+      "access_token": "ff501505-0248-43f8-88e7-926da0ca1ba7",
+      "token_type": not important,
+      "refresh_token": not important,
+      "expires_in": not important,
+      "scope": not important
+    }
+
+<br/>
+Now we need to add this to the headers of our request.
+<br/>
+|Authorization   |    Bearer ff501505-0248-43f8-88e7-926da0ca1ba7|
+<br/>
+|Content-Type    |    application/json|
+<br/>
+
+<br/>
+
 <mark>GET</mark> Through this route you can retrieve all brands <br/>
 
     /catalog/brands
 
 <br/>
-Return value:
+Example return value:
 <br/>
     
     [
@@ -58,7 +109,7 @@ Return value:
 
     /catalog/categories
 <br/>
-Return value:
+Example return value:
 <br/>
 
     [
@@ -88,7 +139,7 @@ Return value:
     /catalog/categories/{id}
 <br/>
 
-Return value:
+Example return value:
 <br/>
 
     {
@@ -103,7 +154,7 @@ Return value:
 
     /catalog/products
 <br/>
-Return value:
+Example return value:
 <br/>
 
     {
@@ -175,7 +226,7 @@ Return value:
     /catalog/products/{id}
 <br/>
 
-Return value:
+Example return value:
 <br/>
 
     {
@@ -236,7 +287,7 @@ Return value:
     /catalog/products?name={productName}&page={number}&size={size}
 <br/>
 
-Return value:
+Example return value:
 <br/>
 
     {
