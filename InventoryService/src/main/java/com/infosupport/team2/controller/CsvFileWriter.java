@@ -2,19 +2,24 @@ package com.infosupport.team2.controller;
 
 import com.infosupport.team2.model.Product;
 import com.infosupport.team2.serviceCaller.OrderServiceCaller;
-import lombok.AllArgsConstructor;
 import lombok.NoArgsConstructor;
+import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Configurable;
-import org.springframework.stereotype.Component;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
 import org.supercsv.io.CsvBeanWriter;
 import org.supercsv.io.ICsvBeanWriter;
 import org.supercsv.prefs.CsvPreference;
 
-import java.io.*;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.time.LocalDateTime;
-import java.util.*;
+import java.time.format.DateTimeFormatter;
+import java.util.List;
+import java.util.Properties;
+import java.util.TimerTask;
 
 /**
  * Created by djones on 1/17/17.
@@ -23,19 +28,19 @@ import java.util.*;
 @Controller
 public class CsvFileWriter extends TimerTask {
 
+    @Value("${csv.config.path}")
+    private String configPath;
+
     private Long refreshRate;
     private int runs = 0;
+    private final static Logger logger = Logger.getLogger(CsvFileWriter.class);
 
-    public void setRefreshRate(Long refreshRate){
+    public void setRefreshRate(Long refreshRate) {
         this.refreshRate = refreshRate;
     }
 
     @Autowired
     OrderServiceCaller orderServiceCaller;
-
-    public CsvFileWriter(Long parseStringToLong) {
-        this.refreshRate = parseStringToLong;
-    }
 
     @Override
     public void run() {
@@ -43,10 +48,9 @@ public class CsvFileWriter extends TimerTask {
             try {
                 downloadCsv();
             } catch (IOException e) {
-                e.printStackTrace();
+                logger.error(e.getMessage());
             }
         }
-
         runs++;
     }
 
@@ -54,16 +58,16 @@ public class CsvFileWriter extends TimerTask {
     public void downloadCsv() throws IOException {
         List<Product> products = orderServiceCaller.productList(refreshRate);
 
-        //Mock data pls
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy_MM_dd_HH_mm");
         LocalDateTime localDateTime = LocalDateTime.now();
-        File file = new File("/home/djones/Desktop/asd/test.properties");
+        File file = new File(System.getProperty("user.dir") + configPath);
         FileInputStream fileInputStream = new FileInputStream(file);
 
         Properties properties = new Properties();
         properties.load(fileInputStream);
         String value = properties.getProperty("directory");
 
-        String filename = "_test_"+ localDateTime +"_.csv";
+        String filename = "Voorraad_" + localDateTime.format(formatter) + ".csv";
         String absolutepath = value + filename;
 
         ICsvBeanWriter beanWriter = null;
@@ -78,10 +82,11 @@ public class CsvFileWriter extends TimerTask {
                 beanWriter.write(item, header);
             }
 
-        } catch (FileNotFoundException e) {
-            e.printStackTrace();
+        } catch (Exception e) {
+            logger.error("File not found", e);
         } finally {
-            if(beanWriter != null) {
+            fileInputStream.close();
+            if (beanWriter != null) {
                 beanWriter.close();
             }
         }
